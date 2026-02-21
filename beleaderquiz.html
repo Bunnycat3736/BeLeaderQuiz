@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeLeader Leadership Style Test</title>
+    <style>
+        body {
+            background-color: #00008b; /* Dark blue */
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #ffa500; /* Orange */
+        }
+        .question {
+            background-color: #001f3f; /* Darker blue */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            accent-color: #ff0000; /* Red */
+        }
+        button {
+            background-color: #ffa500; /* Orange */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #ff0000; /* Red */
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #001f3f;
+            border-radius: 8px;
+            display: none;
+        }
+        #result h2 {
+            color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://static.wixstatic.com/media/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg/v1/fill/w_940,h_498,al_c,q_85,enc_auto/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg" alt="BeLeader Logo" style="max-width: 300px;">
+        <h1>Quick Leadership Style Test: Discover Your Leader Type</h1>
+    </header>
+
+    <p>This is a simple 5-question quiz to help identify your primary leadership style. Choose the option that best matches how you'd handle each situation.</p>
+
+    <form id="quizForm">
+        <div class="question">
+            <h3>Question 1: Your team is facing a tight deadline on a project. How do you respond?</h3>
+            <label><input type="radio" name="q1" value="A"> A) Rally the team around an exciting end goal and encourage creative solutions to push forward.</label>
+            <label><input type="radio" name="q1" value="B"> B) Meet one-on-one with team members to identify skill gaps and coach them through challenges.</label>
+            <label><input type="radio" name="q1" value="C"> C) Hold a group meeting to gather everyone's ideas and vote on the best approach.</label>
+            <label><input type="radio" name="q1" value="D"> D) Dive in yourself to demonstrate the pace needed, and expect others to match your effort.</label>
+        </div>
+
+        <div class="question">
+            <h3>Question 2: A team member is underperforming. What's your first step?</h3>
+            <label><input type="radio" name="q2" value="A"> A) Share an inspiring story of overcoming obstacles to motivate them toward improvement.</label>
+            <label><input type="radio" name="q2" value="B"> B) Have a supportive conversation to understand their needs and create a personal development plan.</label>
+            <label><input type="radio" name="q2" value="C"> C) Discuss it openly in a team setting to get collective feedback and shared solutions.</label>
+            <label><input type="radio" name="q2" value="D"> D) Set clear, high expectations and monitor their progress closely with specific targets.</label>
+        </div>
+
+        <div class="question">
+            <h3>Question 3: When making a big decision for the team, you prefer to:</h3>
+            <label><input type="radio" name="q3" value="A"> A) Outline a bold vision and get buy-in by explaining how it benefits everyone long-term.</label>
+            <label><input type="radio" name="q3" value="B"> B) Guide individuals through the implications, helping them see how it aligns with their growth.</label>
+            <label><input type="radio" name="q3" value="C"> C) Consult the group extensively, weighing pros and cons based on team input.</label>
+            <label><input type="radio" name="q3" value="D"> D) Analyze the options quickly and decide based on what will deliver the best results efficiently.</label>
+        </div>
+
+        <div class="question">
+            <h3>Question 4: How do you handle team conflicts?</h3>
+            <label><input type="radio" name="q4" value="A"> A) Reframe the issue as an opportunity for innovation and guide the team toward a unified future.</label>
+            <label><input type="radio" name="q4" value="B"> B) Act as a mediator, focusing on each person's perspective to build empathy and skills.</label>
+            <label><input type="radio" name="q4" value="C"> C) Facilitate a discussion where all voices are heard to reach a fair, agreed-upon resolution.</label>
+            <label><input type="radio" name="q4" value="D"> D) Step in decisively to resolve it, emphasizing performance and moving on swiftly.</label>
+        </div>
+
+        <div class="question">
+            <h3>Question 5: Your approach to team motivation is:</h3>
+            <label><input type="radio" name="q5" value="A"> A) Painting an inspiring picture of success and celebrating milestones that align with the vision.</label>
+            <label><input type="radio" name="q5" value="B"> B) Providing ongoing feedback and opportunities for personal achievement and learning.</label>
+            <label><input type="radio" name="q5" value="C"> C) Encouraging open dialogue and recognition of collective contributions.</label>
+            <label><input type="radio" name="q5" value="D"> D) Leading with your own high energy and rewarding those who meet or exceed standards.</label>
+        </div>
+
+        <button type="button" onclick="calculateResult()">Submit</button>
+    </form>
+
+    <div id="result">
+        <h2>Your Leader Type:</h2>
+        <p id="resultText"></p>
+    </div>
+
+    <script>
+        function calculateResult() {
+            const form = document.getElementById('quizForm');
+            const answers = {};
+            ['A', 'B', 'C', 'D'].forEach(letter => answers[letter] = 0);
+
+            for (let i = 1; i <= 5; i++) {
+                const selected = form.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    answers[selected.value]++;
+                }
+            }
+
+            let maxCount = 0;
+            let leaderType = '';
+            for (const [type, count] of Object.entries(answers)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    leaderType = type;
+                }
+            }
+
+            let description = '';
+            if (leaderType === 'A') {
+                description = 'Visionary Leader – You\'re great at inspiring change and keeping teams focused on the future.';
+            } else if (leaderType === 'B') {
+                description = 'Coaching Leader – You excel at nurturing talent and building capable teams over time.';
+            } else if (leaderType === 'C') {
+                description = 'Democratic Leader – You thrive on collaboration and creating an inclusive environment.';
+            } else if (leaderType === 'D') {
+                description = 'Pacesetting Leader – You\'re driven by excellence and lead through high performance.';
+            }
+
+            if (maxCount === 0) {
+                description = 'Please answer all questions to see your result.';
+            } else if (Object.values(answers).filter(c => c === maxCount).length > 1) {
+                description = 'You have a hybrid style! Consider which scenarios felt most natural.';
+            }
+
+            document.getElementById('resultText').innerText = description;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
