@@ -3,158 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeLeader Leadership Style Test</title>
+    <title>BeLeader • Discover Your Leadership Style</title>
     <style>
+        :root {
+            --darkblue: #00008b;
+            --orange: #ffa500;
+            --red: #ff0000;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background-color: #00008b; /* Dark blue */
+            background: linear-gradient(135deg, #00008b 0%, #001f3f 100%);
             color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
         }
         header {
             text-align: center;
-            margin-bottom: 20px;
+            padding: 40px 20px 20px;
+            background: rgba(0,0,0,0.4);
+        }
+        .logo {
+            max-width: 340px;
+            margin-bottom: 15px;
         }
         h1 {
-            color: #ffa500; /* Orange */
+            font-size: 2.8rem;
+            color: #ffa500;
+            margin-bottom: 8px;
         }
-        .question {
-            background-color: #001f3f; /* Darker blue */
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
+        .tagline {
+            font-size: 1.35rem;
+            opacity: 0.95;
         }
-        label {
-            display: block;
-            margin-bottom: 10px;
+
+        .container {
+            max-width: 740px;
+            margin: 30px auto;
+            padding: 0 15px;
         }
-        input[type="radio"] {
-            accent-color: #ff0000; /* Red */
+
+        .quiz-card {
+            background: #001f3f;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
-        button {
-            background-color: #ffa500; /* Orange */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+
+        .progress {
+            height: 10px;
+            background: #ffa500;
             border-radius: 5px;
+            margin-bottom: 30px;
+            transition: width 0.4s ease;
+        }
+
+        .question {
+            margin-bottom: 40px;
+        }
+        .question h3 {
+            font-size: 1.45rem;
+            margin-bottom: 22px;
+            color: #ffa500;
+        }
+        .options label {
+            display: block;
+            background: rgba(255,165,0,0.12);
+            padding: 20px 25px;
+            margin: 14px 0;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .options label:hover {
+            background: rgba(255,165,0,0.25);
+            transform: translateX(10px);
+        }
+        .options input[type="radio"] {
+            accent-color: #ff0000;
+            transform: scale(1.5);
+            margin-right: 18px;
+        }
+
+        button {
+            background: #ffa500;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.35rem;
+            padding: 20px 60px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 25px;
+            transition: all 0.3s;
         }
         button:hover {
-            background-color: #ff0000; /* Red */
+            background: #ff0000;
+            color: white;
+            transform: scale(1.05);
         }
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #001f3f;
-            border-radius: 8px;
+
+        #result, #leadFormSection, #certificate {
             display: none;
         }
-        #result h2 {
+
+        .result-box {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .result-icon {
+            font-size: 6rem;
+            margin: 20px 0;
+        }
+        .result-title {
+            font-size: 2.5rem;
             color: #ffa500;
+            margin-bottom: 15px;
+        }
+
+        .lead-form {
+            background: #001f3f;
+            padding: 40px;
+            border-radius: 20px;
+        }
+        .lead-form input {
+            width: 100%;
+            padding: 18px;
+            margin: 15px 0;
+            background: rgba(255,255,255,0.1);
+            border: 3px solid #ffa500;
+            border-radius: 14px;
+            color: white;
+            font-size: 1.15rem;
+        }
+
+        .certificate {
+            background: linear-gradient(135deg, #001f3f, #00008b);
+            border: 15px solid #ffa500;
+            padding: 70px 50px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 40px auto;
+            box-shadow: 0 0 80px rgba(255,165,0,0.7);
+        }
+        .certificate h2 {
+            font-size: 2.4rem;
+            color: #ffa500;
+        }
+        .name {
+            font-size: 3.2rem;
+            font-weight: bold;
+            margin: 35px 0;
+            color: white;
+        }
+        .print-btn {
+            background: #ff0000;
+            color: white;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
+
     <header>
-        <img src="https://static.wixstatic.com/media/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg/v1/fill/w_940,h_498,al_c,q_85,enc_auto/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg" alt="BeLeader Logo" style="max-width: 300px;">
-        <h1>Quick Leadership Style Test: Discover Your Leader Type</h1>
+        <img src="https://static.wixstatic.com/media/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg/v1/fill/w_940,h_498,al_c,q_85,enc_auto/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg" 
+             class="logo" alt="BeLeader Logo">
+        <h1>Discover Your Leadership Style</h1>
+        <p class="tagline">in just 2 minutes • BeLeader Pune</p>
     </header>
 
-    <p>This is a simple 5-question quiz to help identify your primary leadership style. Choose the option that best matches how you'd handle each situation.</p>
+    <div class="container">
 
-    <form id="quizForm">
-        <div class="question">
-            <h3>Question 1: Your team is facing a tight deadline on a project. How do you respond?</h3>
-            <label><input type="radio" name="q1" value="A"> A) Rally the team around an exciting end goal and encourage creative solutions to push forward.</label>
-            <label><input type="radio" name="q1" value="B"> B) Meet one-on-one with team members to identify skill gaps and coach them through challenges.</label>
-            <label><input type="radio" name="q1" value="C"> C) Hold a group meeting to gather everyone's ideas and vote on the best approach.</label>
-            <label><input type="radio" name="q1" value="D"> D) Dive in yourself to demonstrate the pace needed, and expect others to match your effort.</label>
+        <!-- ==================== QUIZ SECTION ==================== -->
+        <div id="quizSection" class="quiz-card">
+            <div class="progress" id="progress" style="width:16.67%"></div>
+
+            <!-- Question 1 -->
+            <div id="q1" class="question">
+                <h3>1. How do you usually make decisions?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="1"> A. Involve the team and take their input</label>
+                    <label><input type="radio" name="q1" value="2"> B. Decide myself after quick analysis</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="q2" class="question" style="display:none">
+                <h3>2. When someone on the team is struggling at work?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="1"> A. Understand and support them</label>
+                    <label><input type="radio" name="q2" value="2"> B. Expect results</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="q3" class="question" style="display:none">
+                <h3>3. In team discussions you:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="1"> A. Encourage ideas</label>
+                    <label><input type="radio" name="q3" value="2"> B. Give direction</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div id="q4" class="question" style="display:none">
+                <h3>4. Your focus as a leader:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="1"> A. People and motivation</label>
+                    <label><input type="radio" name="q4" value="2"> B. Targets and performance</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div id="q5" class="question" style="display:none">
+                <h3>5. Your leadership approach:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="1"> A. Collaborate and build trust</label>
+                    <label><input type="radio" name="q5" value="2"> B. Control and execute fast</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div id="q6" class="question" style="display:none">
+                <h3>6. When deadlines are tight:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="1"> A. Motivate the team</label>
+                    <label><input type="radio" name="q6" value="2"> B. Push strongly for delivery</label>
+                </div>
+            </div>
+
+            <button id="nextBtn" onclick="nextQuestion()">Continue</button>
         </div>
 
-        <div class="question">
-            <h3>Question 2: A team member is underperforming. What's your first step?</h3>
-            <label><input type="radio" name="q2" value="A"> A) Share an inspiring story of overcoming obstacles to motivate them toward improvement.</label>
-            <label><input type="radio" name="q2" value="B"> B) Have a supportive conversation to understand their needs and create a personal development plan.</label>
-            <label><input type="radio" name="q2" value="C"> C) Discuss it openly in a team setting to get collective feedback and shared solutions.</label>
-            <label><input type="radio" name="q2" value="D"> D) Set clear, high expectations and monitor their progress closely with specific targets.</label>
+        <!-- ==================== RESULT SECTION ==================== -->
+        <div id="result" class="quiz-card result-box">
+            <div class="result-icon" id="resultIcon"></div>
+            <div class="result-title" id="resultTitle"></div>
+            <p id="resultDesc" style="font-size:1.35rem; max-width:520px; margin:25px auto;"></p>
+            <button onclick="showLeadForm()">Get My Detailed Leadership Report & Certificate →</button>
         </div>
 
-        <div class="question">
-            <h3>Question 3: When making a big decision for the team, you prefer to:</h3>
-            <label><input type="radio" name="q3" value="A"> A) Outline a bold vision and get buy-in by explaining how it benefits everyone long-term.</label>
-            <label><input type="radio" name="q3" value="B"> B) Guide individuals through the implications, helping them see how it aligns with their growth.</label>
-            <label><input type="radio" name="q3" value="C"> C) Consult the group extensively, weighing pros and cons based on team input.</label>
-            <label><input type="radio" name="q3" value="D"> D) Analyze the options quickly and decide based on what will deliver the best results efficiently.</label>
+        <!-- ==================== LEAD FORM (REAL BACKEND) ==================== -->
+        <div id="leadFormSection" class="quiz-card lead-form">
+            <h2 style="text-align:center; color:#ffa500; margin-bottom:30px;">Enter your details to receive the certificate</h2>
+            <form id="leadForm" action="https://formsubmit.co/poornimacpadwal@gmail.com" method="POST">
+                <input type="text" name="full_name" placeholder="Full Name *" required>
+                <input type="text" name="organization" placeholder="Organization / Company">
+                <input type="text" name="designation" placeholder="Designation">
+                <input type="tel" name="mobile" placeholder="Mobile Number (WhatsApp) *" required>
+                <input type="email" name="email" placeholder="Email Address *" required>
+
+                <!-- Hidden fields for backend -->
+                <input type="hidden" name="leadership_style" id="hiddenStyle">
+                <input type="hidden" name="_subject" value="🚀 New BeLeader Stall Lead - Quiz Completed!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="#certificate">
+
+                <button type="submit">Submit & Generate Certificate</button>
+            </form>
         </div>
 
-        <div class="question">
-            <h3>Question 4: How do you handle team conflicts?</h3>
-            <label><input type="radio" name="q4" value="A"> A) Reframe the issue as an opportunity for innovation and guide the team toward a unified future.</label>
-            <label><input type="radio" name="q4" value="B"> B) Act as a mediator, focusing on each person's perspective to build empathy and skills.</label>
-            <label><input type="radio" name="q4" value="C"> C) Facilitate a discussion where all voices are heard to reach a fair, agreed-upon resolution.</label>
-            <label><input type="radio" name="q4" value="D"> D) Step in decisively to resolve it, emphasizing performance and moving on swiftly.</label>
+        <!-- ==================== CERTIFICATE SECTION ==================== -->
+        <div id="certificate" class="certificate">
+            <h2>Leadership Style Recognition Certificate</h2>
+            <p style="font-size:1.5rem; margin-top:30px;">This is to certify that</p>
+            <div class="name" id="certName">________________</div>
+            <p style="font-size:1.6rem; margin:35px 0;">has successfully completed the</p>
+            <h3 style="color:#ffa500; font-size:2rem;">Leadership Style Discovery Assessment</h3>
+            <p style="font-size:1.7rem; margin:50px 0 20px;">and demonstrates the leadership approach of:</p>
+            <div id="certStyle" style="font-size:2.9rem; color:#ffa500; font-weight:bold; min-height:90px;"></div>
+            
+            <p style="margin-top:70px; opacity:0.9; font-size:1.2rem;">Issued by BeLeader • Pune</p>
+            <p style="font-size:1.15rem;">Transforming People. Transforming Organizations.</p>
+            
+            <button class="print-btn" onclick="window.print()">Print / Save Certificate</button>
+            <p style="margin-top:40px; font-size:1.1rem;">Visit our stall to collect your physical Leadership Style Card!</p>
         </div>
 
-        <div class="question">
-            <h3>Question 5: Your approach to team motivation is:</h3>
-            <label><input type="radio" name="q5" value="A"> A) Painting an inspiring picture of success and celebrating milestones that align with the vision.</label>
-            <label><input type="radio" name="q5" value="B"> B) Providing ongoing feedback and opportunities for personal achievement and learning.</label>
-            <label><input type="radio" name="q5" value="C"> C) Encouraging open dialogue and recognition of collective contributions.</label>
-            <label><input type="radio" name="q5" value="D"> D) Leading with your own high energy and rewarding those who meet or exceed standards.</label>
-        </div>
-
-        <button type="button" onclick="calculateResult()">Submit</button>
-    </form>
-
-    <div id="result">
-        <h2>Your Leader Type:</h2>
-        <p id="resultText"></p>
     </div>
 
     <script>
-        function calculateResult() {
-            const form = document.getElementById('quizForm');
-            const answers = {};
-            ['A', 'B', 'C', 'D'].forEach(letter => answers[letter] = 0);
+        let currentQ = 1;
+        let score = 0;
+        let answers = {};
 
-            for (let i = 1; i <= 5; i++) {
-                const selected = form.querySelector(`input[name="q${i}"]:checked`);
-                if (selected) {
-                    answers[selected.value]++;
-                }
+        function nextQuestion() {
+            const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
+            if (!selected) {
+                alert("Please select an option to continue");
+                return;
             }
 
-            let maxCount = 0;
-            let leaderType = '';
-            for (const [type, count] of Object.entries(answers)) {
-                if (count > maxCount) {
-                    maxCount = count;
-                    leaderType = type;
-                }
-            }
+            answers[currentQ] = parseInt(selected.value);
+            score += parseInt(selected.value);
 
-            let description = '';
-            if (leaderType === 'A') {
-                description = 'Visionary Leader – You\'re great at inspiring change and keeping teams focused on the future.';
-            } else if (leaderType === 'B') {
-                description = 'Coaching Leader – You excel at nurturing talent and building capable teams over time.';
-            } else if (leaderType === 'C') {
-                description = 'Democratic Leader – You thrive on collaboration and creating an inclusive environment.';
-            } else if (leaderType === 'D') {
-                description = 'Pacesetting Leader – You\'re driven by excellence and lead through high performance.';
-            }
+            document.getElementById(`q${currentQ}`).style.display = 'none';
+            currentQ++;
 
-            if (maxCount === 0) {
-                description = 'Please answer all questions to see your result.';
-            } else if (Object.values(answers).filter(c => c === maxCount).length > 1) {
-                description = 'You have a hybrid style! Consider which scenarios felt most natural.';
+            if (currentQ <= 6) {
+                document.getElementById(`q${currentQ}`).style.display = 'block';
+                document.getElementById('progress').style.width = (currentQ * 16.67) + '%';
+                document.getElementById('nextBtn').textContent = (currentQ === 6) ? "See My Leadership Style" : "Continue";
+            } else {
+                showResult();
             }
-
-            document.getElementById('resultText').innerText = description;
-            document.getElementById('result').style.display = 'block';
         }
+
+        function showResult() {
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+
+            let icon, title, desc;
+            if (score <= 8) {
+                icon = "🌱";
+                title = "🌱 People Builder Leader";
+                desc = "You lead through collaboration, trust, empathy and motivation.<br>Your strength is building strong, happy teams.";
+            } else if (score <= 10) {
+                icon = "⚖️";
+                title = "⚖️ Balanced Leader";
+                desc = "You beautifully balance people focus with performance.<br>A versatile leader who adapts to any situation.";
+            } else {
+                icon = "🚀";
+                title = "🚀 Execution Leader";
+                desc = "You drive speed, accountability and results.<br>Your teams deliver under pressure.";
+            }
+
+            document.getElementById('resultIcon').innerHTML = icon;
+            document.getElementById('resultTitle').innerHTML = title;
+            document.getElementById('resultDesc').innerHTML = desc;
+        }
+
+        function showLeadForm() {
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('leadFormSection').style.display = 'block';
+        }
+
+        // Auto-fill hidden style field before form submit
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            let styleText = "";
+            if (score <= 8) styleText = "🌱 People Builder Leader";
+            else if (score <= 10) styleText = "⚖️ Balanced Leader";
+            else styleText = "🚀 Execution Leader";
+
+            document.getElementById('hiddenStyle').value = styleText;
+
+            // Show certificate immediately
+            setTimeout(() => {
+                const name = document.querySelector('input[name="full_name"]').value || "Leader";
+                document.getElementById('leadFormSection').style.display = 'none';
+                document.getElementById('certificate').style.display = 'block';
+                document.getElementById('certName').innerText = name.toUpperCase();
+                document.getElementById('certStyle').innerHTML = styleText;
+            }, 800);
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Enter" && document.getElementById('quizSection').style.display !== 'none') {
+                nextQuestion();
+            }
+        });
     </script>
 </body>
 </html>
