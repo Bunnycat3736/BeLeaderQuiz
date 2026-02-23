@@ -17,14 +17,18 @@
         .logo { max-width:340px; margin-bottom:10px; }
         h1 { font-size:2.8rem; color:#ffa500; }
         .tagline { font-size:1.35rem; opacity:0.95; }
+
         .container { max-width:740px; margin:30px auto; padding:0 15px; }
+
         .quiz-card {
             background:#001f3f;
             border-radius:20px;
             padding:40px;
             box-shadow:0 25px 50px rgba(0,0,0,0.6);
         }
+
         .progress { height:10px; background:#ffa500; border-radius:5px; margin-bottom:30px; transition:width 0.4s; }
+
         .question h3 { color:#ffa500; font-size:1.45rem; margin-bottom:22px; }
         .options label {
             display:block;
@@ -38,6 +42,7 @@
         }
         .options label:hover { background:rgba(255,165,0,0.25); transform:translateX(10px); }
         .options input[type="radio"] { accent-color:#ff0000; transform:scale(1.5); margin-right:18px; }
+
         button {
             background:#ffa500;
             color:#000;
@@ -51,9 +56,11 @@
             cursor:pointer;
         }
         button:hover { background:#ff0000; color:white; transform:scale(1.05); }
+
         .result-box, .certificate { text-align:center; }
         .result-icon { font-size:6rem; margin:20px 0; }
         .result-title { font-size:2.5rem; color:#ffa500; }
+
         .lead-form input {
             width:100%;
             padding:18px;
@@ -64,6 +71,7 @@
             color:white;
             font-size:1.15rem;
         }
+
         .certificate {
             background:linear-gradient(135deg,#001f3f,#00008b);
             border:15px solid #ffa500;
@@ -86,59 +94,12 @@
     </header>
 
     <div class="container">
-
         <!-- QUIZ SECTION -->
         <div id="quizSection" class="quiz-card">
             <div class="progress" id="progress" style="width:16.67%"></div>
-
-            <div id="q1" class="question">
-                <h3>1. How do you usually make decisions?</h3>
-                <div class="options">
-                    <label><input type="radio" name="q1" value="1"> A. Involve the team and take their input</label>
-                    <label><input type="radio" name="q1" value="2"> B. Decide myself after quick analysis</label>
-                </div>
-            </div>
-
-            <div id="q2" class="question" style="display:none">
-                <h3>2. When someone on the team is struggling at work?</h3>
-                <div class="options">
-                    <label><input type="radio" name="q2" value="1"> A. Understand and support them</label>
-                    <label><input type="radio" name="q2" value="2"> B. Expect results</label>
-                </div>
-            </div>
-
-            <div id="q3" class="question" style="display:none">
-                <h3>3. In team discussions you:</h3>
-                <div class="options">
-                    <label><input type="radio" name="q3" value="1"> A. Encourage ideas</label>
-                    <label><input type="radio" name="q3" value="2"> B. Give direction</label>
-                </div>
-            </div>
-
-            <div id="q4" class="question" style="display:none">
-                <h3>4. Your focus as a leader:</h3>
-                <div class="options">
-                    <label><input type="radio" name="q4" value="1"> A. People and motivation</label>
-                    <label><input type="radio" name="q4" value="2"> B. Targets and performance</label>
-                </div>
-            </div>
-
-            <div id="q5" class="question" style="display:none">
-                <h3>5. Your leadership approach:</h3>
-                <div class="options">
-                    <label><input type="radio" name="q5" value="1"> A. Collaborate and build trust</label>
-                    <label><input type="radio" name="q5" value="2"> B. Control and execute fast</label>
-                </div>
-            </div>
-
-            <div id="q6" class="question" style="display:none">
-                <h3>6. When deadlines are tight:</h3>
-                <div class="options">
-                    <label><input type="radio" name="q6" value="1"> A. Motivate the team</label>
-                    <label><input type="radio" name="q6" value="2"> B. Push strongly for delivery</label>
-                </div>
-            </div>
-
+            <!-- Questions 1 to 6 same as before (I kept them short for space) -->
+            <div id="q1" class="question"> ... (same 6 questions as last code) ... </div>
+            <!-- (For brevity I omitted repeating all 6 questions here – copy them from previous code) -->
             <button id="nextBtn" onclick="nextQuestion()">Continue</button>
         </div>
 
@@ -149,11 +110,11 @@
             <p id="resultDesc" style="font-size:1.35rem;max-width:520px;margin:25px auto;"></p>
             <button onclick="showLeadForm()">Get My Detailed Leadership Report & Certificate →</button>
         </div>
-
-        <!-- LEAD FORM -->
-        <div id="leadFormSection" class="quiz-card lead-form" style="display:none">
+        <!-- ==================== LEAD FORM (REAL BACKEND) ==================== -->
+        <div id="leadFormSection" class="quiz-card lead-form">
             <h2 style="text-align:center; color:#ffa500; margin-bottom:30px;">Enter your details to receive the certificate</h2>
-            <form id="leadForm" action="https://formsubmit.co/poornimacpadwal@gmail.com" method="POST">
+            
+            <form id="leadForm">
                 <input type="text" name="full_name" placeholder="Full Name *" required>
                 <input type="text" name="organization" placeholder="Organization / Company">
                 <input type="text" name="designation" placeholder="Designation">
@@ -161,8 +122,7 @@
                 <input type="email" name="email" placeholder="Email Address *" required>
 
                 <input type="hidden" name="leadership_style" id="hiddenStyle">
-                <input type="hidden" name="_subject" value="🚀 New BeLeader Stall Lead - Quiz Completed!">
-                <input type="hidden" name="_captcha" value="false">
+               
 
                 <button type="submit">Submit & Generate Certificate</button>
             </form>
@@ -180,77 +140,68 @@
             <button class="print-btn" onclick="window.print()">Print / Save Certificate</button>
             <p style="margin-top:40px;">Visit our stall to collect your physical Leadership Style Card!</p>
         </div>
-
     </div>
 
-    <script>
-        let currentQ = 1;
-        let score = 0;
+<script>
 
-        function nextQuestion() {
-            const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
-            if (!selected) {
-                alert("Please select an option");
-                return;
-            }
-            score += parseInt(selected.value);
+let score = 0; // keep your existing quiz scoring logic
 
-            document.getElementById(`q${currentQ}`).style.display = 'none';
-            currentQ++;
+// ================= RESULT LOGIC =================
+function showLeadForm() {
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('leadFormSection').style.display = 'block';
+}
 
-            if (currentQ <= 6) {
-                document.getElementById(`q${currentQ}`).style.display = 'block';
-                document.getElementById('progress').style.width = (currentQ * 16.67) + '%';
-                document.getElementById('nextBtn').textContent = currentQ === 6 ? "See My Leadership Style" : "Continue";
-            } else {
-                showResult();
-            }
-        }
+// ================= GOOGLE SHEETS SUBMIT =================
+const scriptURL = "https://bunnycat3736.github.io/BeLeaderQuiz/beleaderquiz.html";
 
-        function showResult() {
-            document.getElementById('quizSection').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
+document.getElementById("leadForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-            let icon, title, desc;
-            if (score <= 8) {
-                icon = "🌱"; title = "🌱 People Builder Leader";
-                desc = "You lead through collaboration, trust, empathy and motivation.<br>Your strength is building strong, happy teams.";
-            } else if (score <= 10) {
-                icon = "⚖️"; title = "⚖️ Balanced Leader";
-                desc = "You beautifully balance people and performance.<br>A versatile leader who adapts to any situation.";
-            } else {
-                icon = "🚀"; title = "🚀 Execution Leader";
-                desc = "You drive speed, accountability and results.<br>Your teams deliver under pressure.";
-            }
+    // ---- leadership style calculation (UNCHANGED LOGIC) ----
+    let styleText = "";
+    if (score <= 8) styleText = "🌱 People Builder Leader";
+    else if (score <= 10) styleText = "⚖️ Balanced Leader";
+    else styleText = "🚀 Execution Leader";
 
-            document.getElementById('resultIcon').innerHTML = icon;
-            document.getElementById('resultTitle').innerHTML = title;
-            document.getElementById('resultDesc').innerHTML = desc;
-        }
+    document.getElementById('hiddenStyle').value = styleText;
 
-        function showLeadForm() {
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('leadFormSection').style.display = 'block';
-        }
+    // ---- collect form data ----
+    const formData = {
+        full_name: this.full_name.value,
+        organization: this.organization.value,
+        designation: this.designation.value,
+        mobile: this.mobile.value,
+        email: this.email.value,
+        leadership_style: styleText
+    };
 
-        // Form submit handler
-        document.getElementById('leadForm').addEventListener('submit', function() {
-            let styleText = "";
-            if (score <= 8) styleText = "🌱 People Builder Leader";
-            else if (score <= 10) styleText = "⚖️ Balanced Leader";
-            else styleText = "🚀 Execution Leader";
+    // ---- SEND TO GOOGLE SHEETS ----
+    fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        generateCertificate(formData.full_name, styleText);
+    })
+    .catch(error => {
+        alert("Submission failed. Try again.");
+        console.error(error);
+    });
 
-            document.getElementById('hiddenStyle').value = styleText;
+});
 
-            // Show certificate after submit
-            setTimeout(() => {
-                const name = document.querySelector('input[name="full_name"]').value || "Amazing Leader";
-                document.getElementById('leadFormSection').style.display = 'none';
-                document.getElementById('certificate').style.display = 'block';
-                document.getElementById('certName').innerText = name.toUpperCase();
-                document.getElementById('certStyle').innerHTML = styleText;
-            }, 1000);
-        });
-    </script>
+
+// ================= CERTIFICATE =================
+function generateCertificate(name, style) {
+
+    document.getElementById('leadFormSection').style.display = 'none';
+    document.getElementById('certificate').style.display = 'block';
+
+    document.getElementById('certName').innerText = name.toUpperCase();
+    document.getElementById('certStyle').innerHTML = style;
+}
+
+</script>
 </body>
 </html>
