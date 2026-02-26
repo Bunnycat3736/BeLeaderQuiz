@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeLeader • Discover Your Leadership Style</title>
+    <style>
+        :root { --darkblue: #00008b; --orange: #ffa500; --red: #ff0000; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: linear-gradient(135deg, #00008b 0%, #001f3f 100%);
+            color: white;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+        }
+        header { text-align:center; padding:40px 20px 20px; }
+        .logo { max-width:340px; margin-bottom:10px; }
+        h1 { font-size:2.8rem; color:#ffa500; }
+        .tagline { font-size:1.35rem; opacity:0.95; }
+        .container { max-width:740px; margin:30px auto; padding:0 15px; }
+        .quiz-card {
+            background:#001f3f;
+            border-radius:20px;
+            padding:40px;
+            box-shadow:0 25px 50px rgba(0,0,0,0.6);
+        }
+        .progress { height:10px; background:#ffa500; border-radius:5px; margin-bottom:30px; transition:width 0.4s; }
+        .question h3 { color:#ffa500; font-size:1.45rem; margin-bottom:22px; }
+        .options label {
+            display:block;
+            background:rgba(255,165,0,0.12);
+            padding:20px 25px;
+            margin:14px 0;
+            border-radius:14px;
+            font-size:1.2rem;
+            cursor:pointer;
+            transition:0.3s;
+        }
+        .options label:hover { background:rgba(255,165,0,0.25); transform:translateX(10px); }
+        .options input[type="radio"] { accent-color:#ff0000; transform:scale(1.5); margin-right:18px; }
+        button {
+            background:#ffa500;
+            color:#000;
+            font-size:1.35rem;
+            font-weight:bold;
+            padding:20px 60px;
+            border:none;
+            border-radius:50px;
+            width:100%;
+            margin-top:25px;
+            cursor:pointer;
+        }
+        button:hover { background:#ff0000; color:white; transform:scale(1.05); }
+        .result-box, .certificate { text-align:center; }
+        .result-icon { font-size:6rem; margin:20px 0; }
+        .result-title { font-size:2.5rem; color:#ffa500; }
+        .lead-form input {
+            width:100%;
+            padding:18px;
+            margin:15px 0;
+            background:rgba(255,255,255,0.1);
+            border:3px solid #ffa500;
+            border-radius:14px;
+            color:white;
+            font-size:1.15rem;
+        }
+        .certificate {
+            background:linear-gradient(135deg,#001f3f,#00008b);
+            border:15px solid #ffa500;
+            padding:70px 50px;
+            border-radius:25px;
+            margin:40px auto;
+            box-shadow:0 0 80px rgba(255,165,0,0.7);
+        }
+        .name { font-size:3.2rem; font-weight:bold; margin:35px 0; }
+        .print-btn { background:#ff0000; color:white; padding:18px 50px; font-size:1.3rem; border-radius:50px; margin-top:30px; }
+        .bonus {
+            background: linear-gradient(135deg, #ffa500, #ff0000);
+            color: #000;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0 15px;
+            font-weight: bold;
+            font-size: 1.35rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255,165,0,0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.03); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://static.wixstatic.com/media/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg/v1/fill/w_940,h_498,al_c,q_85,enc_auto/11ee0c_b3f491e33acd46f4b842fd93afbe3320~mv2.jpg" 
+             class="logo" alt="BeLeader Logo">
+        <h1>Discover Your Leadership Style</h1>
+        <p class="tagline">in just 2 minutes • BeLeader Pune</p>
+    </header>
+
+    <div class="container">
+
+        <!-- QUIZ SECTION -->
+        <div id="quizSection" class="quiz-card">
+            <div class="progress" id="progress" style="width:16.67%"></div>
+
+            <div id="q1" class="question">
+                <h3>1. How do you usually make decisions?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="1"> A. Involve the team and take their input</label>
+                    <label><input type="radio" name="q1" value="2"> B. Decide myself after quick analysis</label>
+                </div>
+            </div>
+
+            <div id="q2" class="question" style="display:none">
+                <h3>2. When someone on the team is struggling at work?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="1"> A. Understand and support them</label>
+                    <label><input type="radio" name="q2" value="2"> B. Expect results</label>
+                </div>
+            </div>
+
+            <div id="q3" class="question" style="display:none">
+                <h3>3. In team discussions you:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="1"> A. Encourage ideas</label>
+                    <label><input type="radio" name="q3" value="2"> B. Give direction</label>
+                </div>
+            </div>
+
+            <div id="q4" class="question" style="display:none">
+                <h3>4. Your focus as a leader:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="1"> A. People and motivation</label>
+                    <label><input type="radio" name="q4" value="2"> B. Targets and performance</label>
+                </div>
+            </div>
+
+            <div id="q5" class="question" style="display:none">
+                <h3>5. Your leadership approach:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="1"> A. Collaborate and build trust</label>
+                    <label><input type="radio" name="q5" value="2"> B. Control and execute fast</label>
+                </div>
+            </div>
+
+            <div id="q6" class="question" style="display:none">
+                <h3>6. When deadlines are tight:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="1"> A. Motivate the team</label>
+                    <label><input type="radio" name="q6" value="2"> B. Push strongly for delivery</label>
+                </div>
+            </div>
+
+            <button id="nextBtn" onclick="nextQuestion()">Continue</button>
+        </div>
+
+        <!-- RESULT -->
+        <div id="result" class="quiz-card result-box" style="display:none">
+            <div class="result-icon" id="resultIcon"></div>
+            <div class="result-title" id="resultTitle"></div>
+            <p id="resultDesc" style="font-size:1.35rem;max-width:520px;margin:25px auto;"></p>
+            <button onclick="showLeadForm()">Get My Detailed Leadership Report & Certificate →</button>
+        </div>
+
+        <!-- LEAD FORM -->
+        <div id="leadFormSection" class="quiz-card lead-form" style="display:none">
+            <h2 style="text-align:center; color:#ffa500; margin-bottom:30px;">Enter your details to receive the certificate</h2>
+            
+            <form id="leadForm">
+                <input type="text" name="full_name" placeholder="Full Name *" required>
+                <input type="text" name="organization" placeholder="Organization / Company">
+                <input type="text" name="designation" placeholder="Designation">
+                <input type="tel" name="mobile" placeholder="Mobile Number (WhatsApp) *" required>
+                <input type="email" name="email" placeholder="Email Address *" required>
+
+                <input type="hidden" name="leadership_style" id="hiddenStyle">
+
+                <!-- EPIC SURPRISE GIFT SECTION - RIGHT HERE AFTER FIELDS -->
+                <div class="bonus">
+                    🎉 <strong>MEGA SURPRISE GIFT UNLOCKED!</strong> 🎉<br><br>
+                    Because you completed the quiz, we're giving you<br>
+                    <strong>50% OFF</strong> on our bestseller course!<br><br>
+                    <strong>"Getting into your role quickly - First Time Managers"</strong><br>
+                    ₹799 → <strong style="font-size:1.5rem;">ONLY ₹399</strong><br><br>
+                    <a href="https://www.udemy.com/course/get-into-your-role-quickly-first-time-managers/?couponCode=FTM2026" target="_blank" style="color:#000; font-size:1.3rem; text-decoration:underline;">🚀 CLICK HERE TO GRAB YOUR DISCOUNT NOW!</a>
+                </div>
+
+                <button type="submit">Submit & Generate Certificate</button>
+            </form>
+        </div>
+
+        <!-- CERTIFICATE -->
+        <div id="certificate" class="certificate" style="display:none">
+            <h2>Leadership Style Recognition Certificate</h2>
+            <p style="font-size:1.5rem;">This is to certify that</p>
+            <div class="name" id="certName"></div>
+            <p style="font-size:1.6rem;margin:30px 0;">has successfully completed the Leadership Style Discovery Assessment</p>
+            <div id="certStyle" style="font-size:2.8rem;color:#ffa500;font-weight:bold;margin:40px 0;"></div>
+            <p style="margin-top:60px;opacity:0.9;">Issued by BeLeader • Pune</p>
+            <p style="font-size:1.2rem;">Transforming People. Transforming Organizations.</p>
+            <button class="print-btn" onclick="window.print()">Print / Save Certificate</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentQ = 1;
+        let score = 0;
+
+        function nextQuestion() {
+            const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
+            if (!selected) { alert("Please select an option"); return; }
+            score += parseInt(selected.value);
+
+            document.getElementById(`q${currentQ}`).style.display = 'none';
+            currentQ++;
+
+            if (currentQ <= 6) {
+                document.getElementById(`q${currentQ}`).style.display = 'block';
+                document.getElementById('progress').style.width = (currentQ * 16.67) + '%';
+                document.getElementById('nextBtn').textContent = currentQ === 6 ? "See My Leadership Style" : "Continue";
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+
+            let icon, title, desc;
+            if (score <= 8) { icon = "🌱"; title = "🌱 People Builder Leader"; desc = "You lead through collaboration, trust, empathy and motivation.<br>Your strength is building strong, happy teams."; }
+            else if (score <= 10) { icon = "⚖️"; title = "⚖️ Balanced Leader"; desc = "You beautifully balance people and performance.<br>A versatile leader who adapts to any situation."; }
+            else { icon = "🚀"; title = "🚀 Execution Leader"; desc = "You drive speed, accountability and results.<br>Your teams deliver under pressure."; }
+
+            document.getElementById('resultIcon').innerHTML = icon;
+            document.getElementById('resultTitle').innerHTML = title;
+            document.getElementById('resultDesc').innerHTML = desc;
+        }
+
+        function showLeadForm() {
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('leadFormSection').style.display = 'block';
+        }
+
+        document.getElementById("leadForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            let styleText = "";
+            if (score <= 8) styleText = "🌱 People Builder Leader";
+            else if (score <= 10) styleText = "⚖️ Balanced Leader";
+            else styleText = "🚀 Execution Leader";
+
+            document.getElementById('hiddenStyle').value = styleText;
+
+            const formData = {
+                full_name: this.full_name.value,
+                organization: this.organization.value,
+                designation: this.designation.value,
+                mobile: this.mobile.value,
+                email: this.email.value,
+                leadership_style: styleText
+            };
+
+            fetch("https://bunnycat3736.github.io/BeLeaderQuiz/beleaderquiz.html", {
+                method: "POST",
+                body: JSON.stringify(formData)
+            })
+            .then(() => generateCertificate(formData.full_name, styleText))
+            .catch(() => generateCertificate(formData.full_name, styleText));
+        });
+
+        function generateCertificate(name, style) {
+            document.getElementById('leadFormSection').style.display = 'none';
+            document.getElementById('certificate').style.display = 'block';
+            document.getElementById('certName').innerText = name.toUpperCase();
+            document.getElementById('certStyle').innerHTML = style;
+        }
+    </script>
+</body>
+</html>
