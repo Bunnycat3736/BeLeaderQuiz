@@ -79,7 +79,7 @@
             color: #000;
             padding: 25px;
             border-radius: 20px;
-            margin: 25px 0 15px;
+            margin: 25px 0;
             font-weight: bold;
             font-size: 1.35rem;
             text-align: center;
@@ -87,6 +87,21 @@
             animation: pulse 2s infinite;
         }
         @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.03); } }
+
+        /* PRINT FIX */
+        @media print {
+            body * { visibility: hidden; }
+            .certificate, .certificate * { visibility: visible; }
+            .certificate {
+                position: absolute;
+                left: 0; top: 0;
+                width: 100%;
+                padding: 60px 40px;
+                margin: 0;
+                box-shadow: none;
+            }
+            .bonus, header, button, .quiz-card { display: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -176,14 +191,8 @@
 
                 <input type="hidden" name="leadership_style" id="hiddenStyle">
 
-                <!-- EPIC SURPRISE GIFT SECTION - RIGHT HERE AFTER FIELDS -->
-                <div class="bonus">
-                    🎉 <strong>MEGA SURPRISE GIFT UNLOCKED!</strong> 🎉<br><br>
-                    Because you completed the quiz, we're giving you<br>
-                    <strong>50% OFF</strong> on our bestseller course!<br><br>
-                    <strong>"Getting into your role quickly - First Time Managers"</strong><br>
-                    ₹799 → <strong style="font-size:1.5rem;">ONLY ₹399</strong><br><br>
-                    <a href="https://www.udemy.com/course/get-into-your-role-quickly-first-time-managers/?couponCode=FTM2026" target="_blank" style="color:#000; font-size:1.3rem; text-decoration:underline;">🚀 CLICK HERE TO GRAB YOUR DISCOUNT NOW!</a>
+                <div style="margin:25px 0; padding:18px; background:rgba(255,165,0,0.15); border-radius:14px; text-align:center; color:#ffa500; font-size:1.25rem; font-weight:600;">
+                    Complete your details to unlock your special 50% discount gift on our exclusive Udemy course
                 </div>
 
                 <button type="submit">Submit & Generate Certificate</button>
@@ -200,6 +209,15 @@
             <p style="margin-top:60px;opacity:0.9;">Issued by BeLeader • Pune</p>
             <p style="font-size:1.2rem;">Transforming People. Transforming Organizations.</p>
             <button class="print-btn" onclick="window.print()">Print / Save Certificate</button>
+
+            <div class="bonus">
+                🎉 <strong>MEGA SURPRISE GIFT UNLOCKED!</strong> 🎉<br><br>
+                Because you completed the quiz, we're giving you<br>
+                <strong>50% OFF</strong> on our bestseller course!<br><br>
+                <strong>"Getting into your role quickly - First Time Managers"</strong><br>
+                ₹799 → <strong style="font-size:1.5rem;">ONLY ₹399</strong><br><br>
+                <a href="https://www.udemy.com/course/get-into-your-role-quickly-first-time-managers/?couponCode=FTM2026" target="_blank" style="color:#000; font-size:1.3rem; text-decoration:underline;">🚀 CLICK HERE TO GRAB YOUR DISCOUNT NOW!</a>
+            </div>
         </div>
 
     </div>
@@ -263,7 +281,8 @@
                 leadership_style: styleText
             };
 
-            fetch("https://bunnycat3736.github.io/BeLeaderQuiz/beleaderquiz.html", {
+            // YOUR GOOGLE SHEETS WEB APP LINK
+            fetch("https://script.google.com/macros/s/AKfycbwer9prWJmLCeIHDtR8qeQkeUroViHREkzMb4sGzzOUfuFNHdmiCxl-91dUnhqTz1k/exec", {
                 method: "POST",
                 body: JSON.stringify(formData)
             })
